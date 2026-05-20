@@ -53,8 +53,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-ROOT_URLCONF = 'TP2026.urls'
 
 TEMPLATES = [
     {
@@ -73,6 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'TP2026.wsgi.application'
 
+ROOT_URLCONF = 'TP2026.urls'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
@@ -116,7 +115,9 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
