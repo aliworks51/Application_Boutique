@@ -32,6 +32,15 @@ class DetailForm(forms.ModelForm):
         model = Detail
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self.instance and self.instance.pk:
+            if 'commande' in self.fields:
+                self.fields['commande'].disabled = True
+            if 'produit' in self.fields:
+                self.fields['produit'].disabled = True
+
    
 class ClientForm1(forms.ModelForm):
    class Meta:
