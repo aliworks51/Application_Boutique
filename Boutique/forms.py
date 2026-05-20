@@ -16,8 +16,8 @@ class ProduitForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        self.fields['npro'].disabled = True
+        if self.instance and self.instance.pk:
+            self.fields['npro'].disabled = True
 class CommandeForm(forms.ModelForm):
     class Meta:
         model = Commande
@@ -25,8 +25,8 @@ class CommandeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        self.fields['ncom'].disabled = True
+        if self.instance and self.instance.pk:
+            self.fields['ncom'].disabled = True
 class DetailForm(forms.ModelForm):
     class Meta:
         model = Detail
