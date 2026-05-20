@@ -1,0 +1,45 @@
+{% extends 'Boutique/base.html' %}
+{% block content %}
+<h2>Stock Produits</h2>
+{% if perms.Boutique.add_produit %}
+   <a href ="{% url 'ajouter_produit' %}"style = "background:green;color:white;padding:10px;text-decoration:none;">+Ajouter Produit</a>
+   <br><br>
+{%endif%}
+
+<table border="1">
+    <tr>
+        <th>Libelle</th>
+        <th>Stock</th>
+        {% if perms.Boutique.change_produit or perms.Boutique.delete_produit %}
+        <th>Action </th>
+        {% endif %}
+    </tr>
+   {% for p in produit %}
+      <tr>
+          <td>{{ p.libelle|capfirst }}</td>
+          <td>{{ p.qstock }}</td>
+          <!-- <td>
+              {% if perms.Boutique.change_produit %}
+              <a href="{% url 'modifier_produit'  p.npro %}">MODIFIER_1</a>
+              {%endif%}
+              {% if perms.Boutique.delete_produit %}
+              <a href="{% url 'supprimer_produit' p.npro %}" style="color:red;">SUPPRIMER_1</a>
+              {%endif%}
+              {% if not perms.Boutique.change_commande and not perms.Boutique.delete_commande %}
+               <span style="color: gray;">Lecture seule</span>
+              {%endif%} 
+          </td> -->
+          {% if perms.Boutique.change_produit or perms.Boutique.delete_produit %}
+          <td>
+              {% if perms.Boutique.change_produit %}
+              <a href="{% url 'update' 3 p.npro 0 %}">MODIFIER<a>
+              {% endif %}
+              {% if perms.Boutique.delete_produit %}
+              <a href="{% url 'delete' 3 p.npro 0 %}" style="color:red;">SUPPRIMER</a>
+              {% endif %}
+          </td>
+          {% endif %}
+      </tr>
+   {% endfor %}
+</table>
+{%endblock%}

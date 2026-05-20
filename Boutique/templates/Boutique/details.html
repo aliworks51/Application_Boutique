@@ -1,0 +1,57 @@
+{% extends "Boutique/base.html" %}
+
+{% block content %}
+<h2>Liste des détails de commandes</h2>
+{% if perms.Boutique.add_detail %}
+<a href="{% url 'ajouter_detail'%}" style = "background: green; color:white;padding:10px;text-decoration:none;">+Ajouter Detail</a>
+{% endif %}
+<br> <br>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Numéro de commande</th>
+            <th>Ref produit</th>
+            <th>Quantité</th>
+             <th>localite</th>
+                {% if perms.Boutique.change_detail or perms.Boutique.delete_detail %}
+                <th>Action </th>
+                {% endif %}
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for d in details %}
+        <tr>
+            <td>Commande n {{ d.commande.ncom }} du{{d.commande.datecom|date:"d/m/Y"}}</td>
+            <td>{{ d.produit.libelle }}</td>
+            <td style ="text-align:center;">{{d.qcom}} </td>
+            <td>{{ d.commande.client.localite }}</td>
+             <!-- <td>  
+                {% if perms.Boutique.change_detail %}
+              <a href="{% url 'modifier_detail'  d.commande_id d.produit_id%}">MODIFIER_1</a>
+               {% endif %}
+                {% if perms.Boutique.delete_detail %}
+              <a href="{% url 'supprimer_detail'  d.commande_id d.produit_id %}" style="color: red;">SUPPRIMER_1</a>
+                   </a>
+                {% endif %}
+                {% if not perms.Boutique.change_detail and not perms.Boutique.delete_detail %}
+               <span style="color: gray;">Lecture seule</span>
+                {% endif %}
+             </td> -->
+             {% if perms.Boutique.change_detail or perms.Boutique.delete_detail %}
+                <td>
+                {% if perms.Boutique.change_detail %}
+                <a href="{% url 'update' 2 d.commande_id d.produit_id%}">MODIFIER</a>
+                {% endif %}
+                {% if perms.Boutique.delete_detail %}
+                <a href="{% url 'delete' 2 d.commande_id d.produit_id %}" style="color: red;">SUPPRIMER</a>
+                {% endif %}
+                </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'Boutique/base.html' %}
+
+{% block content %}
+
+<h2>Liste des Clients</h2>
+{% if perms.Boutique.add_client %}
+
+   <a href ="{% url 'ajouter_client' %}"style = "background:green;color:white;padding:10px;text-decoration:none;">+Ajouter Client</a>
+   <br><br>
+{%endif%}
+<table border="1">
+    <tr>
+        <th>Nom</th>
+        <th>Ville</th>
+        {%if perms.Boutique.change_client or perms.Boutique.delete_client %}
+        <th>Action </th>
+        {% endif %}
+    </tr>
+
+    {% for c in clients %}
+    <tr>
+        <td>     
+        <a href ="{% url 'client_commandes' c.ncli %}">
+            {{c.nom|upper}}
+        </a>
+        </td>
+        <td>{{ c.localite }}</td>
+        {% if perms.Boutique.change_client or perms.Boutique.delete_client %}
+        <td>
+            {% if perms.Boutique.change_client %}
+            <a href="{% url 'update' 0 c.ncli 0 %}">MODIFIER</a>
+            {% endif %}
+            {% if perms.Boutique.delete_client %}
+            <a href="{% url 'delete' 0 c.ncli 0 %}" style="color:red;">SUPPRIMER</a>
+            {% endif %}
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

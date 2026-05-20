@@ -1,0 +1,11 @@
+{% extends 'Boutique/base.html' %}
+{% block title %}Connexion{% endblock %}
+{% block content %}
+<h2>Ce connecter</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Connexion</button>
+    <a href="{% url 'register' %}">Pas encore de compte? S'inscrire</a>
+</form>
+{%endblock%}

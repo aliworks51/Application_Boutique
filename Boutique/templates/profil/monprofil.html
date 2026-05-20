@@ -1,0 +1,17 @@
+{% extends "Boutique/base.html" %}
+{% block title %}Mon Profil{% endblock %}
+{% block content %}
+<h2>Mon Profil</h2>
+<p><strong>Nom:</strong> {{ user.first_name }}</p>
+<p><strong>Prénom:</strong> {{ user.last_name }}</p>
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Username:</strong> {{ user.username }}</p>
+<p><strong>Groupes:</strong></p>
+<ul>
+{% for group in user.groups.all %}
+    <li>{{ group.name }}</li>
+{% empty %}
+    <li>Aucun groupe assigné.</li>
+{% endfor %}
+</ul>
+{% endblock %}

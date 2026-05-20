@@ -1,0 +1,10 @@
+{% extends 'Boutique/base.html' %}
+{% block content %}
+<h2>{{titre}}</h2>
+<form method = "POST">
+  {% csrf_token %}
+  {{form.as_p}}
+  <button type = "submit">Enregistrer</button>
+  <a href = "javascript:history.back()">Annuler</a>
+</form>
+{% endblock %}

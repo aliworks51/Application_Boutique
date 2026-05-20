@@ -1,0 +1,27 @@
+{% extends 'Boutique/base.html' %}
+{% block title %}Tableau de Board Admin{% endblock %} 
+{% block content %}
+<h2>Tableau de Board Administrateur</h2>
+{% if perms.Boutique.delete_client %}
+    <div style="display: flex;grap: 20px;margin-top: 20px;">
+        <div style="background: #1F4E79;color: white;padding: 20px;border-radius: 8px;text-align: center;">
+            <h3>{{nb_clients}}</h3>
+            <p>Clients</p>
+        </div>
+        <div style="background: #2E75B6;color: white;padding: 20px;border-radius: 8px;text-align: center;margin-left: 20px;">
+            <h3>{{nb_produits}}</h3>
+            <p>Produits</p>
+        </div>
+        <div style="background: #5BA3C9;color: white;padding: 20px;border-radius: 8px;text-align: center;margin-left: 20px;">
+            <h3>{{nb_commandes}}</h3>
+            <p>Commandes</p>
+        </div>
+        <div style="background: #85bbd8;color: white;padding: 20px;border-radius: 8px;text-align: center;margin-left: 20px;">
+            <h3>{{nb_details}}</h3>
+            <p>Details</p> 
+        </div>
+    </div>
+{% else %}
+    <p style="color: red;">Acces reserve aux administrateurs</p>
+{% endif %}
+{% endblock %}

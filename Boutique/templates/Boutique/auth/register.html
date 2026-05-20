@@ -1,0 +1,11 @@
+{% extends 'Boutique/base.html' %}
+{% block title %}Inscription{% endblock %}
+{% block content %}
+<h2>Creer un compte</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">S'inscrite</button>
+    <a href="{% url 'connexion' %}">Deja inscrit? Se connecter</a>
+</form>
+{%endblock%}

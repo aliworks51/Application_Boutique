@@ -1,0 +1,69 @@
+{% extends 'Boutique/base.html'%}
+{%block content%}
+<h2>Historique des Commandes</h2>
+{% if perms.Boutique.add_commande %}
+<a href ="{% url 'ajouter_commande' %}"style = "background:green;color:white;padding:10px;text-decoration:none;">+Ajouter Commande</a>
+<br><br>
+{%endif%}
+<table border="1">
+      <tr>
+            <th>Numero Commande</th>
+            <th>Client</th>
+            <th>Articles</th>
+            {% if perms.Boutique.change_commande or perms.Boutique.delete_commande %}
+            <th>Action </th>
+            {% endif %}
+      </tr>
+      {%for com in commandes%}
+      <tr>
+          <td>{{com.ncom}}</td>
+          <td>{{com.client.nom}}</td>
+          <td>
+             {% for ligne in com.lignes.all %}
+               <li><strong>{{ligne.produit.libelle}}(Qte:{{ligne.qcom}})</strong></li>
+               
+                      <!-- {% if perms.Boutique.change_detail %}
+                      <a href="{% url 'modifier_detail' ligne.commande_id ligne.produit_id %}">MODIFIER_1</a>   
+                      {% endif %}
+                      {% if perms.Boutique.delete_detail %} 
+                      <a href="{% url 'supprimer_detail' ligne.commande_id ligne.produit_id %}" style="color:red;">SUPPRIMER_1</a>
+                         {% endif %}
+                         {% if not perms.Boutique.change_detail and not perms.Boutique.delete_detail %}
+                         <span style="color: gray;">Lecture seule</span>
+                         {% endif %}
+                         <br> -->
+                     {% if perms.Boutique.change_detail %}
+                      <a href="{% url 'update' 2 ligne.commande_id ligne.produit_id %}">MODIFIER</a>
+                        {% endif %}
+                        {% if perms.Boutique.delete_detail %}
+                      <a href="{% url 'delete' 2 ligne.commande_id ligne.produit_id %}" style="color:red;">SUPPRIMER_2</a>
+                           {% endif %}
+                           
+            {% empty %}  
+               <li>Aucune article enregistre.</li>
+            {%endfor%}
+          </td>
+          {% if perms.Boutique.change_commande or perms.Boutique.delete_commande %}
+          <td>
+            {% if perms.Boutique.change_commande %}
+            <a href="{% url 'update' 1 com.ncom 0 %}">MODIFIER</a>
+            {%endif%}
+            {% if perms.Boutique.delete_commande %}
+            <a href="{% url 'delete' 1 com.ncom 0 %}" style="color:red;">SUPPRIMER</a>
+            {%endif%}
+        </td>
+         {% endif %}
+        <td>
+              
+        </td>
+            
+       
+      </tr>
+      </div>
+      {%endfor%}
+</table>
+{%endblock%}
+
+
+
+

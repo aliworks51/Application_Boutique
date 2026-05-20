@@ -1,0 +1,14 @@
+{% extends 'Boutique/base.html' %}
+
+{% block content %}
+
+<h2>Confirmation de suppression</h2>
+<p>Etes-vous sur de vouloir supprimer{{type}}:<strong>{{objet}}</strong>?</p>
+
+<form method="POST">
+  {% csrf_token %}
+  <button type="submit" style="background:red;color:white;">Confermer la suppresion</button>
+  <a href="javascript:history.back()">Annuler</a>
+</form>
+
+{% endblock %}

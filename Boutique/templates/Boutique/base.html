@@ -1,0 +1,55 @@
+
+<html>
+<head>
+<title>{% block title %}Gestion Magasin{% endblock %}</title>
+
+<style>
+nav { background: #333; padding: 10px; }
+nav a { color: white; margin-right: 20px; text-decoration: none; }
+footer { margin-top: 50px; border-top: 1px solid #ccc; text-align: center; }
+</style>
+
+</head>
+
+<body>
+
+<nav>
+{% if perms.Boutique.delete_client %}
+   <a href="{% url 'admin_dashboard' %}">Tableau de Bord</a>
+{% endif %}
+
+<a href="{% url 'clients' %}">Clients</a>
+<a href="{% url 'produits' %}">Produits</a>
+<a href="{% url 'commandes' %}">Commandes</a>
+<a href="{% url 'details' %}">Details</a>
+{% if perms.Boutique.view_client %}
+<a href="{% url 'monprofil' %}">Mon Profil</a>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+    <span style="color: #aaffaa;">{{request.user.username}}</span>
+    
+    <form action = "{% url 'deconnexion' %}" method = "POST" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" style="background: none; border:none; color: white; cursor:pointer;">Deconnexion</button>
+    </form>
+
+{% else %}
+   <a href="{% url 'connexion' %}">Connexion</a>
+  <a href="{% url 'register' %}">Inscription</a>
+{%endif%}
+</nav>
+
+<div class="content">
+{% block content %}
+{% endblock %}
+</div>
+
+<footer>
+<p>&copy; {{ "maintenant"|date:"Y" }} - TP Django : Gestion Commerciale</p>
+</footer>
+
+</body>
+</html>
+
+
